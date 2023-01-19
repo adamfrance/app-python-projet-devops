@@ -4,9 +4,7 @@ pipeline {
         registryCredential = 'dockerhub_id'
         dockerImage = ''
     }
-    agent any
-    stages {
-        node {
+    node {
             stage('SCM') {
                 checkout scm
             }
@@ -16,7 +14,9 @@ pipeline {
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
-        }
+    }
+    agent any
+    stages {
         stage('Building our image') {
             steps {
                 script {
